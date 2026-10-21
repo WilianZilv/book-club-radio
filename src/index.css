@@ -1,0 +1,270 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.141 0.005 285.823);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.141 0.005 285.823);
+  --primary: oklch(0.21 0.006 285.885);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.21 0.006 285.885);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.004 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --ring: oklch(0.705 0.015 286.067);
+}
+
+.dark {
+  --background: oklch(0.141 0.005 285.823);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.21 0.006 285.885);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.21 0.006 285.885);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.92 0.004 286.32);
+  --primary-foreground: oklch(0.21 0.006 285.885);
+  --secondary: oklch(0.274 0.006 286.033);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.274 0.006 286.033);
+  --muted-foreground: oklch(0.705 0.015 286.067);
+  --accent: oklch(0.274 0.006 286.033);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.552 0.016 285.938);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html,
+  body,
+  #root {
+    @apply h-full;
+  }
+  /* sem zoom no celular: sem duplo toque, sem pinça e sem "puxar" a página */
+  html,
+  body {
+    touch-action: pan-x pan-y;
+    overscroll-behavior: none;
+    -webkit-text-size-adjust: 100%;
+  }
+  /* iOS dá zoom ao focar campo com fonte < 16px */
+  @media (pointer: coarse) {
+    input,
+    textarea,
+    select {
+      font-size: 16px !important;
+    }
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@layer components {
+  .markdown {
+    @apply text-sm leading-relaxed [overflow-wrap:anywhere];
+  }
+  .markdown > * + * {
+    @apply mt-2.5;
+  }
+  .markdown h1,
+  .markdown h2 {
+    @apply text-base font-semibold;
+  }
+  .markdown h3,
+  .markdown h4,
+  .markdown h5,
+  .markdown h6 {
+    @apply text-sm font-semibold;
+  }
+  .markdown ul {
+    @apply list-disc pl-5;
+  }
+  .markdown ol {
+    @apply list-decimal pl-5;
+  }
+  .markdown li + li {
+    @apply mt-0.5;
+  }
+  .markdown a {
+    @apply text-sky-400 underline underline-offset-2;
+  }
+  .markdown code {
+    @apply rounded bg-muted px-1 py-0.5 font-mono text-xs;
+  }
+  .markdown pre {
+    @apply overflow-x-auto rounded-md bg-muted p-2;
+  }
+  .markdown pre code {
+    @apply bg-transparent p-0;
+  }
+  .markdown blockquote {
+    @apply border-l-2 pl-3 text-muted-foreground;
+  }
+  .markdown hr {
+    @apply border-border;
+  }
+  .markdown table {
+    @apply block max-w-full overflow-x-auto border-collapse text-xs;
+  }
+  .markdown th,
+  .markdown td {
+    @apply border px-2 py-1 text-left align-top;
+  }
+  .markdown th {
+    @apply bg-muted font-semibold;
+  }
+}
+
+/* ---------- prédio dos agentes ---------- */
+@keyframes office-type {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-14deg); }
+}
+@keyframes office-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes office-sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes office-conduct {
+  0%, 100% { transform: rotate(10deg); }
+  25% { transform: rotate(-40deg); }
+  50% { transform: rotate(-5deg); }
+  75% { transform: rotate(-55deg); }
+}
+@keyframes office-scan {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-3px, 2px); }
+}
+@keyframes office-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+@keyframes office-zzz {
+  0% { opacity: 0; transform: translate(0, 4px); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: translate(4px, -6px); }
+}
+@keyframes office-pop {
+  0% { opacity: 0; transform: translateY(6px) scale(0.8); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes office-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+@keyframes office-steam {
+  0% { opacity: 0; transform: translateY(2px); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-3px); }
+}
+@keyframes office-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes office-cloud {
+  from { left: -10%; }
+  to { left: 105%; }
+}
+@keyframes office-twinkle {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.2; }
+}
+
+@layer components {
+  .office-type-l { animation: office-type 0.35s ease-in-out infinite; }
+  .office-type-r { animation: office-type 0.35s ease-in-out infinite reverse; animation-delay: 0.17s; }
+  .office-bob { animation: office-bob 1.6s ease-in-out infinite; }
+  .office-sway { animation: office-sway 1.2s ease-in-out infinite; transform-origin: 50% 100%; }
+  .office-conduct { animation: office-conduct 1.2s ease-in-out infinite; }
+  .office-scan { animation: office-scan 1.4s ease-in-out infinite; }
+  .office-blink { animation: office-blink 4s infinite; }
+  .office-zzz { animation: office-zzz 2.4s ease-in-out infinite; }
+  .office-pop { animation: office-pop 0.25s ease-out both; }
+  .office-glow { animation: office-glow 1.2s ease-in-out infinite; }
+  .office-steam { animation: office-steam 2s ease-in-out infinite; }
+  .office-marquee { animation: office-marquee 40s linear infinite; }
+  .office-marquee:hover { animation-play-state: paused; }
+  .office-cloud { animation: office-cloud 55s linear infinite; }
+  .office-twinkle { animation: office-twinkle 3s ease-in-out infinite; }
+  .office-blink-led { animation: office-glow 0.9s steps(2) infinite; }
+  .office-sepia { filter: sepia(0.55) saturate(0.85); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="office-"] { animation: none !important; }
+}
+
+/* Animações em elementos SVG do prédio isométrico giram/deslizam em torno do próprio desenho. */
+g.office-bob,
+g.office-sway {
+  transform-box: fill-box;
+}
+
+@keyframes office-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.35); }
+}
+@layer components {
+  .office-pulse { animation: office-pulse 1.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+}
+
+@keyframes office-plane {
+  from { left: -6%; transform: translateY(0); }
+  to { left: 106%; transform: translateY(-30px); }
+}
+@keyframes office-birds {
+  from { left: 108%; }
+  to { left: -12%; }
+}
+@keyframes office-flap {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.45); }
+}
+@layer components {
+  .office-plane { animation: office-plane 48s linear infinite; }
+  .office-birds { animation: office-birds 36s linear infinite; }
+  .office-flap { animation: office-flap 0.5s ease-in-out infinite; }
+}
